@@ -1,13 +1,13 @@
-let inputEl = document.querySelector(".todoInput");
-let buttonEl = document.querySelector(".todoBtn");
-let ulEl = document.querySelector(".todoResult");
+let inputEl = $(".todoInput");
+let buttonEl = $(".todoBtn");
+let ulEl = $(".todoResult");
 
 let todos = [];
 
-buttonEl.addEventListener("click", addTodo);
+buttonEl.click(addTodo);
 
 function addTodo() {
-  let userInput = inputEl.value;
+  let userInput = inputEl.val();
 
   if (userInput.trim() == "") {
     return;
@@ -16,18 +16,18 @@ function addTodo() {
   let newTodo = { id: Math.random(), value: userInput };
   todos.push(newTodo);
 
-  let todoLi = document.createElement("li");
-  todoLi.textContent = userInput;
-  todoLi.addEventListener("click", removeTodo);
-  todoLi.dataset.id = newTodo.id;
-  ulEl.appendChild(todoLi);
+  $("<li>" + userInput + "</li>")
+    .appendTo(ulEl)
+    .attr("dataset-id", newTodo.id)
+    .click(removeTodo);
+
   inputEl.value = "";
   console.log(todos);
 }
 
 function removeTodo(event) {
-  let clickedLi = event.target;
-  let itemId = clickedLi.dataset.id;
+  let clickedLi = $(this);
+  let itemId = clickedLi.attr("dataset-id");
 
   for (let index = 0; index < todos.length; index++) {
     if (todos[index].id == itemId) {
@@ -36,6 +36,6 @@ function removeTodo(event) {
     }
   }
 
-  clickedLi.parentNode.removeChild(clickedLi);
+  clickedLi.remove();
   console.log(todos);
 }
