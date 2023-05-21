@@ -8,22 +8,22 @@
     <title>Vanilla JavaScript</title>
   </head>
   <body>
-    <section class="hero" placeholder="Add new Todo">
+    <section id="app" class="hero" placeholder="Add new Todo">
       <div class="main">
-        <input class="todoInput" type="text" />
-        <button class="todoBtn">Add Todo</button>
+        <input v-model="userInput" class="todoInput" type="text" />
+        <button v-on:click="addTodo" class="todoBtn">Add Todo</button>
       </div>
       <div class="result">
         <ul class="todoResult"></ul>
       </div>
-      <ul></ul>
+      <ul class="todoResult">
+        <li v-for="todo in todos" v-on:click="removeTodo(todo)">
+          {{ todo.value }}
+        </li>
+      </ul>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    <script
-      src="https://code.jquery.com/jquery-3.7.0.js"
-      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
     <script src="./js/main.js"></script>
   </body>
 </html>

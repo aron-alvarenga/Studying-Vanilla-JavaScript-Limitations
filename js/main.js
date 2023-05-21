@@ -1,41 +1,25 @@
-let inputEl = $(".todoInput");
-let buttonEl = $(".todoBtn");
-let ulEl = $(".todoResult");
-
-let todos = [];
-
-buttonEl.click(addTodo);
-
-function addTodo() {
-  let userInput = inputEl.val();
-
-  if (userInput.trim() == "") {
-    return;
-  }
-
-  let newTodo = { id: _.uniqueId(), value: userInput };
-  todos.push(newTodo);
-
-  $("<li>" + userInput + "</li>")
-    .appendTo(ulEl)
-    .attr("dataset-id", newTodo.id)
-    .click(removeTodo);
-
-  inputEl.value = "";
-  console.log(todos);
-}
-
-function removeTodo(event) {
-  let clickedLi = $(this);
-  let itemId = clickedLi.attr("dataset-id");
-
-  for (let index = 0; index < todos.length; index++) {
-    if (todos[index].id == itemId) {
-      todos.splice(index, 1);
-      break;
-    }
-  }
-
-  clickedLi.remove();
-  console.log(todos);
-}
+new Vue({
+  el: "#app",
+  data: {
+    todos: [],
+    userInput: "",
+  },
+  methods: {
+    addTodo: function () {
+      if (this.userInput.trim() == "") {
+        return;
+      }
+      let newTodo = { id: _.uniqueId(), value: this.userInput };
+      this.todos.push(newTodo);
+    },
+    removeTodo(todo) {
+      let id = todo.id;
+      for (let index = 0; index < this.todos.length; index++) {
+        if (this.todos[index].id == id) {
+          this.todos.splice(index, 1);
+          break;
+        }
+      }
+    },
+  },
+});
